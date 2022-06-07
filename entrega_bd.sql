@@ -1,3 +1,18 @@
+DROP TABLE IF EXISTS TRABALHA;
+DROP TABLE IF EXISTS TERCEIRIZADO;
+DROP TABLE IF EXISTS ESTAGIARIO;
+DROP TABLE IF EXISTS CONCURSADO;
+DROP TABLE IF EXISTS FUNCPSS;
+DROP TABLE IF EXISTS DOCENTES;
+DROP TABLE IF EXISTS AGENTES;
+DROP TABLE IF EXISTS DICIPLINAS;
+DROP TABLE IF EXISTS COLEGIADOS;
+DROP TABLE IF EXISTS DEPARTAMENTOS;
+DROP TABLE IF EXISTS FUNCIONARIOS;
+
+// link para o git https://github.com/Phocosta/TrabalhodeBD
+
+
 create table FUNCIONARIOS(
     id INTEGER primary key,
         NomeFunc varchar(80),
@@ -22,13 +37,15 @@ create table DEPARTAMENTOS(
     idDepto integer primary key,
         idGerente integer,
         NomeDepto VARCHAR(40),
-        foreign key(idGerente) references FUNCIONARIOS(id)
+        foreign key(idGerente) references CONCURSADO(id)
 );
 
 
 create table COLEGIADOS(
     idColeg integer primary key,
-        NomeColeg VARCHAR(30)
+    NomeColeg VARCHAR(30),
+    idCord integer,
+    foreign key(idCord) references CONCURSADO(idFunc)
 );
 
 
@@ -36,7 +53,7 @@ create table ESTAGIARIOS(
     idFunc integer primary key,
         idSuperv integer,
         dataSaida date,
-        foreign key(idSuperv) references FUNCIONARIOS(id),
+        foreign key(idSuperv) references CONCURSADO(id),
         foreign key(idFunc) references FUNCIONARIOS(id) ON DELETE CASCADE
 );
 
@@ -48,14 +65,14 @@ create table FUNCPSS(
 );
 
 
-create table TERCEIRIZADO(
+create table TERCEIRIZADOS(
     idFunc integer primary key,
         nomeEmpresa varchar(40),
         foreign key(idFunc) references FUNCIONARIOS(id) ON DELETE CASCADE
 );
 
 
-create table CONCURSADO(
+create table CONCURSADOS(
     idFunc integer primary key,
         foreign key(idFunc) references FUNCIONARIOS(id) ON DELETE CASCADE
 );
@@ -65,12 +82,12 @@ create table TRABALHA(
     idFunc integer,
         idDepto integer,
         primary key (idFunc, idDepto),
-        foreign key(idFunc) references FUNCIONARIOS(id),
+        foreign key(idFunc) references AGENTE(id),
         foreign key(idDepto) references DEPARTAMENTOS(idDepto)
 );
 
 
-create table DICIPLINA(
+create table DICIPLINAS(
     idDicip integer primary key,
         idColeg integer,
         foreign key(idColeg) references COLEGIADOS(idColeg)
