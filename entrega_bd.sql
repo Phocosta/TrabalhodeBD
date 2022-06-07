@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS COLEGIADOS;
 DROP TABLE IF EXISTS DEPARTAMENTOS;
 DROP TABLE IF EXISTS FUNCIONARIOS;
 
-// link para o git https://github.com/Phocosta/TrabalhodeBD
+##### link para o git https://github.com/Phocosta/TrabalhodeBD
 
 
 create table FUNCIONARIOS(
