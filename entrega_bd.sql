@@ -37,7 +37,7 @@ create table DEPARTAMENTOS(
     idDepto integer primary key,
         idGerente integer,
         NomeDepto VARCHAR(40),
-        foreign key(idGerente) references CONCURSADO(id)
+        foreign key(idGerente) references CONCURSADO(idFunc)
 );
 
 
@@ -53,7 +53,7 @@ create table ESTAGIARIOS(
     idFunc integer primary key,
         idSuperv integer,
         dataSaida date,
-        foreign key(idSuperv) references CONCURSADO(id),
+        foreign key(idSuperv) references CONCURSADO(idFunc),
         foreign key(idFunc) references FUNCIONARIOS(id) ON DELETE CASCADE
 );
 
