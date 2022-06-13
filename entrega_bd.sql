@@ -83,7 +83,7 @@ create table TRABALHA(
         idFunc integer,
         idDepto integer,
         primary key (idFunc, idDepto),
-        foreign key(idFunc) references AGENTE(id),
+        foreign key(idFunc) references AGENTE(idFunc),
         foreign key(idDepto) references DEPARTAMENTOS(idDepto)
 );
 
