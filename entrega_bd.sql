@@ -15,7 +15,8 @@ DROP TABLE IF EXISTS FUNCIONARIOS;
 
 
 create table FUNCIONARIOS(
-        id INTEGER primary key,
+        id integer primary key,
+        idade integer,
         telefone varchar(11),
         NomeFunc varchar(80),
         dataEntrada date
@@ -96,6 +97,8 @@ create table TRABALHA(
 create table CURSOS(
         idCurs integer primary key,
         idColeg integer,
+        nomeCurso(40),
+        prerrequisito varchar(80),
         foreign key(idColeg) references COLEGIADOS(idColeg)
 );
 
