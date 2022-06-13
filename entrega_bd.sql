@@ -73,13 +73,13 @@ create table TERCEIRIZADOS(
 
 
 create table CONCURSADOS(
-    idFunc integer primary key,
+        idFunc integer primary key,
         foreign key(idFunc) references FUNCIONARIOS(id) ON DELETE CASCADE
 );
 
 
 create table TRABALHA(
-    idFunc integer,
+        idFunc integer,
         idDepto integer,
         primary key (idFunc, idDepto),
         foreign key(idFunc) references AGENTE(id),
@@ -87,8 +87,15 @@ create table TRABALHA(
 );
 
 
-create table DICIPLINAS(
-    idDicip integer primary key,
+create table CURSOS(
+        idCurs integer primary key,
         idColeg integer,
         foreign key(idColeg) references COLEGIADOS(idColeg)
+);
+
+
+create table DICIPLINAS(
+        idDicip integer primary key,
+        idCurs integer,
+        foreign key(idCurs) references Cursos(idCurs)
 );
