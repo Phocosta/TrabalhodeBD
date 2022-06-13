@@ -15,60 +15,65 @@ DROP TABLE IF EXISTS FUNCIONARIOS;
 
 
 create table FUNCIONARIOS(
-    id INTEGER primary key,
+        id INTEGER primary key,
+        telefone varchar(11),
         NomeFunc varchar(80),
         dataEntrada date
 );
 
 
 create table AGENTES(
-    idFunc integer primary key,
+        idFunc integer primary key,
         foreign key(idFunc) references FUNCIONARIOS(id) ON DELETE CASCADE
 );
     
 create table DOCENTES(
-    idFunc integer primary key,
+        idFunc integer primary key,
         idColeg integer,
+        grauFormacao varchar(20),
         foreign key(idColeg) references COLEGIADOS(idColeg),
         foreign key(idFunc) references FUNCIONARIOS(id) ON DELETE CASCADE
 );
 
 
 create table DEPARTAMENTOS(
-    idDepto integer primary key,
+        idDepto integer primary key,
         idGerente integer,
+        descricao varchar(80),
         NomeDepto VARCHAR(40),
         foreign key(idGerente) references CONCURSADO(idFunc)
 );
 
 
 create table COLEGIADOS(
-    idColeg integer primary key,
-    NomeColeg VARCHAR(30),
-    idCord integer,
-    foreign key(idCord) references CONCURSADO(idFunc)
+       idColeg integer primary key,
+       NomeColeg VARCHAR(30),
+       descricao varchar(80), 
+       idCord integer,
+       foreign key(idCord) references CONCURSADO(idFunc)
 );
 
 
 create table ESTAGIARIOS(
-    idFunc integer primary key,
-        idSuperv integer,
-        dataSaida date,
-        foreign key(idSuperv) references CONCURSADO(idFunc),
-        foreign key(idFunc) references FUNCIONARIOS(id) ON DELETE CASCADE
+       idFunc integer primary key,
+       idSuperv integer,
+       dataSaida date,
+       foreign key(idSuperv) references CONCURSADO(idFunc),
+       foreign key(idFunc) references FUNCIONARIOS(id) ON DELETE CASCADE
 );
 
 
 create table FUNCPSS(
-    idFunc integer primary key,
-    dataSaida date,
-        foreign key(idFunc) references FUNCIONARIOS(id) ON DELETE CASCADE
+       idFunc integer primary key,
+       dataSaida date,
+       foreign key(idFunc) references FUNCIONARIOS(id) ON DELETE CASCADE
 );
 
 
 create table TERCEIRIZADOS(
-    idFunc integer primary key,
+        idFunc integer primary key,
         nomeEmpresa varchar(40),
+        telefoneEmpresa varchar(11),
         foreign key(idFunc) references FUNCIONARIOS(id) ON DELETE CASCADE
 );
 
