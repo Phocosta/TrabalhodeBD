@@ -216,14 +216,14 @@ VALUES 		#Concursados Gerentes de Setores
 INSERT INTO	COLEGIADOS (idColeg, nomeColeg, idCord)
 VALUES		(1, 'Adiministracao', 33),
 			(2, 'CienciasContabeis', 34),
-			(3, 'CienciasContabeis', 35),
-            (4, 'Adiministracao', 36),
-			(5, 'CienciasContabeis', 37),
-            (6, 'Adiministracao', 38),
-			(7, 'CienciasContabeis', 39),
-            (8, 'Adiministracao', 40),
-			(9, 'CienciasContabeis', 41),
-            (10, 'Adiministracao', 42);
+			(3, 'CienciasEconomicas', 35),
+            (4, 'Letras', 36),
+			(5, 'Matematica', 37),
+            (6, 'Geografia', 38),
+			(7, 'Historia', 39),
+            (8, 'Centro de Desenvolvimento Agroidustrial', 40),
+			(9, 'Pedagodia', 41),
+            (10, 'Turismo e Meio-Ambiente', 42);
             
 INSERT INTO DOCENTES (idFunc, idColeg, grauFormacao)
 VALUES		#Docentes Concursados Cordenadores
@@ -343,7 +343,7 @@ VALUES		(1, 1, 'Bacharelado em Administracao'),
 			(5, 5, 'Licenciatura em Matematica'),
 			(6, 6, 'Licenciatura em Geografia'),
 			(7, 7, 'Licenciatura em Historia'),
-			(8, 8, 'Engenharia de Producao'),
+			(8, 8, 'Engenharia de Producao Agro-Idustrial'),
 			(9, 9, 'Bacharelado em Pedagogia'),
 			(10, 10, 'Bacharelado em Turismo'),
 			(11, 6, 'Bacharelado em Geografia'),
