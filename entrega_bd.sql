@@ -33,7 +33,7 @@ create table CONCURSADOS(
 
 create table COLEGIADOS(
        idColeg integer primary key,
-       nomeColeg VARCHAR(30),
+       nomeColeg VARCHAR(40),
        idCord integer,
        foreign key(idCord) references CONCURSADOS(idFunc)
 );
@@ -145,7 +145,7 @@ VALUES		### Gerentes Concursados De Departamentos
 			(040, 29, 44999076101, 'Jessica Lima', '2008-11-1'),
 			(041, 37, 44888076301, 'Raquel Char', '2009-10-1'),
 			(042, 45, 44995076703, 'Marco Junior', '2011-9-1'),
-            ###Docentes Pertencenstes Colegiados (PSS)
+            ###Docentes Pertencentes Colegiados (PSS)
 			(043, 50, 44998076492, 'Rogerio Cunha', '1999-10-1'),
 			(044, 36, 44998076397, 'Mario Rob', '2003-10-1'),
 			(045, 39, 44998076999, 'Lara Cristina', '2007-3-1'),
@@ -227,7 +227,7 @@ VALUES		(1, 'Adiministracao', 33),
             
 INSERT INTO DOCENTES (idFunc, idColeg, grauFormacao)
 VALUES		#Docentes Concursados Cordenadores
-			(33, 1, 'Doutor'),
+			(33, 1, 'Pos-Doutor'),
             (34, 2, 'Doutor'),
             (35, 3, 'Doutor'),
             (36, 4, 'Doutor'),
@@ -235,17 +235,17 @@ VALUES		#Docentes Concursados Cordenadores
             (38, 6, 'Doutor'),
             (39, 7, 'Doutor'),
             (40, 8, 'Doutor'),
-            (41, 9, 'Doutor'),
+            (41, 9, 'Pos-Doutor'),
             (42, 10, 'Doutor'),
             #Docentes PSS
 			(43, 1, 'Mestre'),
             (44, 2, 'Mestre'),
             (45, 3, 'Mestre'),
             (46, 4, 'Mestre'),
-            (47, 5, 'Mestre'),
-            (48, 6, 'Mestre'),
-            (49, 7, 'Mestre'),
-            (50, 8, 'Mestre'); 
+            (47, 5, 'Ensino Superior'),
+            (48, 6, 'Ensino Superior'),
+            (49, 7, 'Ensino Superior'),
+            (50, 8, 'Ensino Superior'); 
 
 INSERT INTO DEPARTAMENTOS (idDepto, idGerente, nomeDepto)
 VALUES 		(1, 1, 'RecursosHumanos'),
@@ -372,3 +372,68 @@ VALUES		(11 , 'TGA', 33, 1),
 			(82 , 'Calculo 1', 50, 8),
 			(92 , 'Pedagogia Infanto Juvenil', 41, 9),
 			(102 , 'Gerenciamento de Hoteis', 42, 10);
+            
+	
+	#nome dos funcionarios que supervisinam algum estagiario, e a quantidade de estagiarios supervizionados#
+select nomeFunc, count(*)
+from FUNCIONARIOS as F, ESTAGIARIOS as E
+where F.id = E.idSuperv
+group by nomeFunc;
+
+	#nome dos departamentos e colegiados e as quantidades de seus agentes e docentes respectivamente#
+select nomeDepto, count(*)
+from DEPARTAMENTOS as DE, TRABALHA as TR
+where DE.idDepto = TR.idDepto
+group by nomeDepto
+union
+select nomeColeg, count(*)
+from COLEGIADOS as CO, DOCENTES as DC
+where DC.idColeg = CO.idColeg
+group by nomeColeg;
+
+	#nome dos concursados que não supervizionam estagiarios#
+select nomeFunc
+from CONCURSADOS as C, FUNCIONARIOS as F
+where C.idFunc = F.id
+AND   idFunc not in (select idSuperv
+					 from ESTAGIARIOS);
+                     
+	#nome dos colegiados com mais de um curso#
+select nomeColeg
+from COLEGIADOS as CO, CURSOS as CR
+where CO.idColeg = CR.idColeg
+group by nomeColeg
+having count(*) > 1;
+
+	#nome dos cordenadores e gerentes#
+select nomeFunc
+from COLEGIADOS as CO, CONCURSADOS as CC, FUNCIONARIOS
+where CO.idCord = CC.idFunc
+and CC.idFunc = id
+union
+select nomeFunc
+from DEPARTAMENTOS as DP, CONCURSADOS as CD, FUNCIONARIOS
+where DP.idGerente = CD.idFunc
+and CD.idFunc = id;
+
+	#nome dos concursados não agentes#
+select nomeFunc
+from FUNCIONARIOS, CONCURSADOS
+where id = idFunc
+and id not in (select idFunc
+				 from AGENTES);
+
+	#nome dos terceirizados e estagiarios#
+select nomeFunc
+from FUNCIONARIOS, TERCEIRIZADOS
+where id = idFunc
+union
+select nomeFunc
+from FUNCIONARIOS, ESTAGIARIOS
+where id = idFunc;
+
+	#id do funcionario que trabalha em mais de um departamento#
+select T1.idFunc
+from TRABALHA as T1, TRABALHA as T2
+where T1.idFunc = T2.idFunc
+and T1.idDepto <> T2.idDepto;
